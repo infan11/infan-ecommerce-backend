@@ -32,7 +32,7 @@ async function run() {
     const usersCollection = client.db("infanEcomerceWeb").collection("users");
     const addItemsCollection = client.db("infanEcomerceWeb").collection("addItems");
     const cartCollection = client.db("infanEcomerceWeb").collection("cart");
-    const addBooksItemCollection = client.db("infanEcomerceWeb").collection("addBooksItem");
+    // const addBooksItemCollection = client.db("infanEcomerceWeb").collection("addBooksItem");
     // users api 
     app.get("/users" , async (req, res) => {
       const result = await usersCollection.find().toArray()
@@ -66,21 +66,21 @@ async function run() {
       res.send(result)
     })
     // Add books item api 
-    app.get("/addBooksItem" , async (req , res ) => {
-      const  result = await addBooksItemCollection.find().toArray();
-      res.send(result);
-    })
-    app.get("/addBooksItem/:id" , async (req , res) => {
-      const id  = req.params.id;
-      const query = {_id : new ObjectId(id)}
-      const result = await addBooksItemCollection.findOne(query);
-      res.send(result)
-    })
-    app.post('/addBooksItem' , async (req , res) => {
-      const bookItem = req.body;
-      const result = await addBooksItemCollection.insertOne(bookItem);
-      res.send(result)
-    })
+    // app.get("/addBooksItem" , async (req , res ) => {
+    //   const  result = await addBooksItemCollection.find().toArray();
+    //   res.send(result);
+    // })
+    // app.get("/addBooksItem/:id" , async (req , res) => {
+    //   const id  = req.params.id;
+    //   const query = {_id : new ObjectId(id)}
+    //   const result = await addBooksItemCollection.findOne(query);
+    //   res.send(result)
+    // })
+    // app.post('/addBooksItem' , async (req , res) => {
+    //   const bookItem = req.body;
+    //   const result = await addBooksItemCollection.insertOne(bookItem);
+    //   res.send(result)
+    // })
     // cart api 
     app.get("/cart" , async (req, res) => {
       const email = req.query.email;
@@ -93,6 +93,12 @@ async function run() {
       const result = await cartCollection.insertOne(cartItem)
       res.send(result)
     })  
+    app.delete("/cart/:id" , async (req, res) => {
+      const id = req.params.id;
+      const query = {_id : new ObjectId(id)};
+      const result = await cartCollection.deleteOne(query)
+      res.send(result) ;
+    })
 
     // Send a ping to confirm a successful connection
     await client.db("admin").command({ ping: 1 });
