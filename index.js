@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const app = express()
 require("dotenv").config();
+const jwt = require("jsonwebtoken");
 const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 
 const port = process.env.PORT || 5000;
@@ -33,6 +34,8 @@ async function run() {
     const addItemsCollection = client.db("infanEcomerceWeb").collection("addItems");
     const cartCollection = client.db("infanEcomerceWeb").collection("cart");
     // const addBooksItemCollection = client.db("infanEcomerceWeb").collection("addBooksItem");
+    // jwt token api 
+    
     // users api 
     app.get("/users" , async (req, res) => {
       const result = await usersCollection.find().toArray()
