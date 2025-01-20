@@ -123,7 +123,7 @@ async function run() {
       res.send(result);
     })
     // Add items api
-    app.get('/addItems',verifyToken, verifyAdmin, async (req, res) => {
+    app.get('/addItems',verifyToken,  async (req, res) => {
       const result = await addItemsCollection.find().toArray()
       res.send(result)
     })
